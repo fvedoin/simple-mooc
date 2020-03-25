@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="db" uuid="a2ae7961-baf2-4ce4-80d5-29a6cc4b4c63">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Fernando\PycharmProjects\curso\db.sqlite3</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="curso" uuid="8ac5870d-641f-4a6f-8231-c190ff9b5b00">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/curso/settings.py</remarks>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Fernando\PycharmProjects\curso\db.sqlite3</jdbc-url>
+    </data-source>
+  </component>
+</project>
