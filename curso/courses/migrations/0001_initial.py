@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100, verbose_name='Nome')),
                 ('slug', models.SlugField(verbose_name='Atalho')),
                 ('description', models.TextField(blank=True, verbose_name='Descrição')),
+                ('about', models.TextField(blank=True, verbose_name='Sobre o curso')),
                 ('start_date', models.DateField(blank=True, null=True, verbose_name='Data de Início')),
                 ('image', models.ImageField(blank=True, null=True, upload_to='courses/images', verbose_name='Imagem')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Criado em')),

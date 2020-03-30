@@ -4,5 +4,5 @@ from curso.courses.views import index, details
 
 urlpatterns = [
     path('todos/', index, name='index'),
-    path('details/', details, name='details')
+    path('details/<int:pk>/', details, name='details')
 ]

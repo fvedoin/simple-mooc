@@ -17,6 +17,9 @@ class Course(models.Model):
     description = models.TextField(
         'Descrição', blank=True
     )
+    about = models.TextField(
+        'Sobre o curso', blank=True
+    )
     #pode ser nulo (nível de bd)
     start_date = models.DateField(
         'Data de Início', null=True, blank=True
