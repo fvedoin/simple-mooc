@@ -1,5 +1,4 @@
 """curso URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
 Examples:
@@ -14,15 +13,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path, include
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from curso.core import urls
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', include(('curso.core.urls', 'core'), namespace='core')),
     path('cursos/', include(('curso.courses.urls', 'courses'), namespace='courses')),
+    path('conta/', include(('curso.accounts.urls', 'accounts'), namespace='accounts')),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
