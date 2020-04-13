@@ -1,6 +1,5 @@
 /curso/lib
 /venv
-*/__pycache__/*
 *.pyc
 *.pyo
 .installed.cfg
