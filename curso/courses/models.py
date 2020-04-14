@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 
+from curso.core.mail import send_mail_template
+
 class CourseManager(models.Manager):
     def search(self, query):
         return self.get_queryset().filter(
@@ -80,7 +82,7 @@ class Enrollment(models.Model):
 class Announcement(models.Model):
     course = models.ForeignKey(
         Course, verbose_name='Curso',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE, related_name='announcements'
     )
     title = models.CharField(
         'Título', max_length=100)
@@ -103,7 +105,7 @@ class Announcement(models.Model):
         ordering = ['-created_at']
 
 class Comment(models.Model):
-    announcements = models.ForeignKey(
+    announcement = models.ForeignKey(
         'Announcement', verbose_name='Anúncio',
         on_delete=models.CASCADE, related_name='comments'
     )
@@ -125,4 +127,19 @@ class Comment(models.Model):
         verbose_name_plural = 'Comentários'
         ordering = ['created_at']
 
+def post_save_announcement(instance, created, **kwargs):
+    if created:
+        subject = instance.title
+        context = {
+            'announcement': instance
+        }
+        template_name = 'courses/announcement_mail.html'
+        enrollments = Enrollment.objects.filter(course=instance.course, status=1)
+        for enrollment in enrollments:
+            recipient_list = [enrollment.user.email]
+            send_mail_template(subject, template_name, context, recipient_list)
 
+models.signals.post_save.connect(
+    post_save_announcement, sender=Announcement,
+    dispatch_uid='post_save_announcement'
+)

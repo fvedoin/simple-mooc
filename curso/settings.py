@@ -121,15 +121,15 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'curso', 'media')
 MEDIA_URL = '/media/'
-DEFAULT_FROM_EMAIL = 'Fernando <fevedoingarcia@gmail.com>'
+DEFAULT_FROM_EMAIL = 'Fernando <email@example.com>'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_USE_TLS = True
 # EMAIL_PORT = 587
-# EMAIL_HOST_USER = '@gmail.com'
+# EMAIL_HOST_USER = 'email@gmail.com'
 # EMAIL_HOST_PASSWORD = ''
 
-CONTACT_EMAIL = 'ficechin@hotmail.com'
+CONTACT_EMAIL = 'fernando.vgarcia@hotmail.com'
 
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'core:home'

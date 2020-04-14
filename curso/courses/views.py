@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .models import Course, Enrollment
-from .forms import ContactCourse
+from .models import Course, Enrollment, Announcement
+from .forms import ContactCourse, CommentForm
 
 
 def index(request):
@@ -74,6 +74,29 @@ def announcements(request, slug):
             return redirect('accounts:dashboard')
     template = 'courses/announcements.html'
     context = {
-        'course': course
+        'course': course,
+        'announcements': course.announcements.all()
     }
+    return render(request, template, context)
+
+@login_required
+def show_announcement(request, slug, pk):
+    course = get_object_or_404(Course, slug=slug)
+    announcement = get_object_or_404(course.announcements.all(), pk=pk)
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.user = request.user
+        comment.announcement = announcement
+        comment.save()
+        form = CommentForm()
+        messages.success(request, 'Seu comentário foi enviado com sucesso!')
+
+    template = 'courses/show_announcement.html'
+    context = {
+        'course': course,
+        'announcement': announcement,
+        'form': form
+    }
+
     return render(request, template, context)
