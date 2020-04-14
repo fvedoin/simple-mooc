@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 from curso.core.mail import send_mail_template
 
@@ -30,6 +31,10 @@ class Course(models.Model):
     )
 
     objects = CourseManager()
+
+    def released_lessons(self):
+        today = timezone.now().date()
+        return self.lessons.filter(release_date__gte=today)
 
     def __str__(self):
         return self.name
@@ -65,6 +70,12 @@ class Lesson(models.Model):
     updated_at = models.DateTimeField(
         'Atualizado em', auto_now=True
     )
+
+    def is_available(self):
+        if self.release_date:
+            today = timezone.now().date()
+            return self.release_date >= today
+        return False
 
     def __str__(self):
         return self.name
