@@ -50,7 +50,7 @@
                 {% for thread in object_list %}
                     <div class="well">
                         <h3>
-                            <a href="#">{{ thread.title }}</a>
+                            <a href="{% url 'forum:thread' thread.slug %}">{{ thread.title }}</a>
                         </h3>
                         <h5>
                             Criado por {{ thread.author }}
@@ -63,7 +63,7 @@
                             {% for tag in thread.tags.all %}
                                 <a href="{% url 'forum:index_tagged' tag.slug %}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
                             {% endfor %}
-                            <a class="fright">Atualizado há {{ thread.updated_at|timesince }}</a>
+                            <a href="{% url 'forum:thread' thread.slug %}" class="fright">Atualizado há {{ thread.updated_at|timesince }}</a>
                         </p>
                     </div>
                 {% endfor %}

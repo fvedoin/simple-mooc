@@ -6,6 +6,9 @@ class Thread(models.Model):
     title = models.CharField(
         'Título', max_length=100
     )
+    slug = models.SlugField(
+        'Identificador', max_length=100, unique=True
+    )
     body = models.TextField('Mensagem')
     views = models.IntegerField(
         'Visualizações', blank=True, default=0
@@ -60,3 +63,18 @@ class Reply(models.Model):
         verbose_name = 'Resposta'
         verbose_name_plural = 'Respostas'
         ordering = ['-correct', 'created_at']
+
+def post_save_reply(created, instance, **kwargs):
+    instance.thread.answers = instance.thread.replies.count()
+    instance.thread.save()
+    if instance.correct:
+        instance.thread.replies.exclude(pk=instance.pk).update(
+            correct=False
+        )
+
+def post_delete_reply(instance, **kwargs):
+    instance.thread.answers = instance.thread.replies.count()
+    instance.thread.save()
+
+models.signals.post_save.connect(post_save_reply, sender=Reply, dispatch_uid='post_save_reply')
+models.signals.post_delete.connect(post_delete_reply, sender=Reply, dispatch_uid='post_delete_reply')
