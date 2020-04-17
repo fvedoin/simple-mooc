@@ -8,7 +8,7 @@ from .models import Thread
 
 class ForumView(ListView):
 
-    paginate_by = 1
+    paginate_by = 10
     template_name = 'forum/index.html'
 
     def get_queryset(self):
@@ -18,6 +18,9 @@ class ForumView(ListView):
             queryset = queryset.order_by('-views')
         elif order == 'answers':
             queryset = queryset.order_by('-answers')
+        tag = self.kwargs.get('tag', '')
+        if tag:
+            queryset = queryset.filter(tags__slug__icontains=tag)
         return queryset
 
     def get_context_data(self, **kwargs):
