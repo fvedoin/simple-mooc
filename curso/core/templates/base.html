@@ -20,7 +20,7 @@
                 <li><a href="{% url 'courses:index' %}">Cursos</a></li>
                 <li><a href="{% url 'forum:index' %}">Fórum</a></li>
                 <li><a href="{% url 'core:contact' %}">Contato</a></li>
-                {%  if user.is_authenticated %}
+                {% if user.is_authenticated %}
                     <li><a href="{% url 'accounts:dashboard' %}">Painel</a></li>
                     <li><a href="{% url 'accounts:logout' %}">Sair</a></li>
                 {% else %}
@@ -46,5 +46,7 @@
     </div>
 </div>
 <script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>
