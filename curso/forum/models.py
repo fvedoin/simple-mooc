@@ -39,7 +39,11 @@ class Reply(models.Model):
         'Correta?', blank=True, default=False
     )
     author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, verbose_name="Autor",
+        settings.AUTH_USER_MODEL, verbose_name='Autor',
+        on_delete=models.CASCADE, related_name='replies'
+    )
+    thread = models.ForeignKey(
+        Thread, verbose_name='Tópico',
         on_delete=models.CASCADE, related_name='replies'
     )
     created_at = models.DateTimeField(
