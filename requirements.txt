@@ -6,7 +6,7 @@ django-taggit==1.2.0
 ez-setup==0.9
 filelock==3.0.12
 model-mommy==2.0.0
-pillow==7.0.0
+pillow==8.3.2
 pytz==2019.3
 six==1.14.0
 sqlparse==0.3.1
